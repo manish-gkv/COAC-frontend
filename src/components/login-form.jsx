@@ -3,13 +3,38 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { NavLink } from "react-router-dom"
+import useAuth from "@/hooks/useAuth"
+import { useState } from "react";
 export function LoginForm({
   className,
   isSignUpDisabled = false,
   ...props
 }) {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const { login, loading } = useAuth();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userData = {
+      email: formData.email,
+      password: formData.password
+    };
+    login(userData);
+  }
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance">
@@ -19,7 +44,7 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input id="email" type="email" name="email" placeholder="m@example.com" required value={formData.email} onChange={handleChange} />
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
@@ -28,9 +53,9 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" type="password" name="password" required value={formData.password} onChange={handleChange} />
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
           Login
         </Button>
         
@@ -38,7 +63,7 @@ export function LoginForm({
       {isSignUpDisabled || (<div className="text-center text-sm">
         Don&apos;t have an account?{" "}
         
-        <NavLink to={"/auth/"+props.signuplink} className="text-primary"> Sign up
+        <NavLink to={"/auth/"+props.role+"/signup"} className="text-primary"> Sign up
         </NavLink>
       </div>)}
     </form>

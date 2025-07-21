@@ -45,9 +45,9 @@ function Student(){
     return (
         <div className="w-full">
             <Routes>
-                <Route path="/" element={<Navigate to="/auth/student/login" replace />} />
-                <Route path="login" element={<LoginForm  signuplink="student/signup"/>} />
-                <Route path="signup" element={<SignUpForm loginlink="student/login"/>} />
+                <Route path="/*" element={<Navigate to="/auth/student/login" replace />} />
+                <Route path="login" element={<LoginForm  role="student"/>} />
+                <Route path="signup" element={<SignUpForm role="student"/>} />
             </Routes>
         </div>
     )
@@ -57,9 +57,9 @@ function Recruiter(){
     return (
         <div className="w-full">
             <Routes>
-                <Route path="/" element={<Navigate to="/auth/recruiter/login" replace />} />
-                <Route path="login" element={<LoginForm  signuplink="recruiter/signup"/>} />
-                <Route path="signup" element={<SignUpForm loginlink="recruiter/login"/>} />
+                <Route path="/*" element={<Navigate to="/auth/recruiter/login" replace />} />
+                <Route path="login" element={<LoginForm  role="recruiter"/>} />
+                <Route path="signup" element={<SignUpForm role="recruiter"/>} />
             </Routes>
         </div>
     )
@@ -69,8 +69,8 @@ function Admin(){
     return (
         <div className="w-full">
             <Routes>
-                <Route path="/" element={<Navigate to="/auth/admin/login" replace />} />
-                <Route path="login" element={<LoginForm  isSignUpDisabled/>} />
+                <Route path="/*" element={<Navigate to="/auth/admin/login" replace />} />
+                <Route path="login" element={<LoginForm  isSignUpDisabled role="admin"/>} />
             </Routes>
         </div>
     )
