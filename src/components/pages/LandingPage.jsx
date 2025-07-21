@@ -121,7 +121,7 @@ function Overview(){
         },
         {
             year: "2023-24",
-            link: "https://www.gkv.ac.in/wp-content/uploads/2024/07/Total-Selection-2023-2024.pdf"
+            link: "https://www.gkv.ac.in/wp-content/uploads/2024/08/TotalSelection2023_2024.pdf"
         },
         {
             year: "2022-23",
@@ -162,10 +162,10 @@ function Overview(){
             </div>
             <div className="flex flex-col gap-2 justify-center items-center">
                 {placementReport.map((report, index) => (
-                    <div key={index} className="flex items-center w-full gap-2 bg-primary text-white px-4 py-4 text-md font-semibold rounded cursor-pointer text-nowrap">
+                    <a href={report.link} target="_blank"><div key={index} className="flex items-center w-full gap-2 bg-primary text-white px-4 py-4 text-md font-semibold rounded cursor-pointer text-nowrap">
                         <BiSolidReport/>
                         <div>Placement Report {report.year}</div>
-                    </div>
+                    </div></a>
                 ))}
             </div>
         </div>
@@ -199,7 +199,7 @@ function RecruitmentProcess() {
                         <div className="basis-1/2 space-y-2 ">
                             <Badge  >Step 01</Badge>
                             <Card className="py-1 px-4 text-wrap w-fit gap-2">
-                                Recruiters interested in hiring will create their online account <span><Button className="h-auto px-3 py-1 text-xs whitespace-nowrap">Create</Button></span>
+                                Recruiters interested in hiring will create their online account <span><NavLink to="/auth/recruiter/signup"><Button className="h-auto px-3 py-1 text-xs whitespace-nowrap cursor-pointer">Create</Button></NavLink></span>
                             </Card>
                         </div>
                     </div>
