@@ -18,6 +18,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+import { NavLink } from "react-router-dom";
+
 function Nav() {
     const [isOpen, setIsOpen] = useState(false);
     const navBarList = [
@@ -87,18 +89,24 @@ function Hero() {
                     GKV is a distinguished center of learning where heritage meets innovation. Rooted in the timeless motto “Tamso Ma Jyotirgamaya” (“From darkness, lead me to light”), our students blend academic excellence, integrity, and perseverance. Guided by Vedic values and equipped with modern skills, GKV graduates are prepared to excel, create value, and illuminate the world around them. Let your journey begin here.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center w-full px-10 gap-1 sm:gap-4 mt-4">
-                    <Button variant={"outline"} className="cursor-pointer">
+                    <NavLink to="/auth/student" >
+                    <Button variant={"outline"} className="cursor-pointer w-full" >
                         <PiStudentFill className="mr-2" />
                         <div>Student</div>
                     </Button>
-                    <Button variant={"outline"} className="cursor-pointer">
+                    </NavLink>
+                    <NavLink to="/auth/recruiter">
+                    <Button variant={"outline"} className="cursor-pointer w-full">
                         <FaSuitcase className="mr-2" />
                         <div>Recruiter</div>
                     </Button>
-                    <Button variant={"outline"} className="cursor-pointer">
+                    </NavLink>
+                    <NavLink to="/auth/admin">
+                    <Button variant={"outline"} className="cursor-pointer w-full">
                         <RiAdminFill className="mr-2" />
                         <div>Admin</div>
                     </Button>
+                    </NavLink>
                 </div>
             </div>
         </div>
