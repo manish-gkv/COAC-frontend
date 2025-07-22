@@ -49,6 +49,11 @@ function JobForm() {
         const jobData = {
             ...formData,
         };
+        if(!jobData.eligibleCourses.length) {
+            alert("Please select at least one eligible course.");
+            setLoading(false);
+            return;
+        }
         try {
             const response = await fetch(`${API_BASE_URL}/api/v1/job`, {
                 method: 'POST',
@@ -85,31 +90,31 @@ function JobForm() {
             </div>
             <div className="grid gap-4 mt-2">
                 <div className="grid gap-3">
-                    <Label htmlFor="jobTitle">Job Title</Label>
+                    <Label htmlFor="jobTitle">Job Title<span className="text-primary">*</span></Label>
                     <Input id="jobTitle" type="text" name="jobTitle" placeholder="Software Engineer" required value={formData.jobTitle} onChange={handleChange} />
                 </div>
                 <div className="grid gap-3">
                     <div className="flex items-center">
-                        <Label htmlFor="description">Job Description</Label>
+                        <Label htmlFor="description">Job Description<span className="text-primary">*</span></Label>
                     </div>
                     <Textarea id="description" name="description" required value={formData.description} onChange={handleChange} />
                 </div>
                 <div className="grid gap-3">
-                    <Label htmlFor="ctc">CTC (Cost to Company)</Label>
+                    <Label htmlFor="ctc">CTC (Cost to Company)<span className="text-primary">*</span></Label>
                     <Input id="ctc" type="number" name="ctc" placeholder="ex: 600000" step="100000" required value={formData.ctc} onChange={handleChange} />
                 </div>
                 <div className="grid gap-3">
                     <div className="flex items-center">
-                        <Label htmlFor="ctcBreakup">CTC Breakup</Label>
+                        <Label htmlFor="ctcBreakup">CTC Breakup<span className="text-primary">*</span></Label>
                     </div>
                     <Textarea id="ctcBreakup" name="ctcBreakup" required value={formData.ctcBreakup} onChange={handleChange} />
                 </div>
                 <div className="grid gap-3">
-                    <Label htmlFor="location">Job Location</Label>
+                    <Label htmlFor="location">Job Location<span className="text-primary">*</span></Label>
                     <Input id="location" type="text" name="location" placeholder="ex: Bangalore, Gurgaon, Noida" required value={formData.location} onChange={handleChange} />
                 </div>
                 <div className="grid gap-3">
-                    <Label htmlFor="eligibleCourses">Eligible Courses</Label>
+                    <Label htmlFor="eligibleCourses">Eligible Courses<span className="text-primary">*</span></Label>
                     <ScrollArea className="h-32 border rounded-md">
                         <div className="grid gap-2 m-2">
                             {courses.map((course, index) => (
@@ -134,16 +139,16 @@ function JobForm() {
                     </ScrollArea>
                 </div>
                 <div className="grid gap-3">
-                    <Label htmlFor="skills">Skills</Label>
+                    <Label htmlFor="skills">Skills<span className="text-primary">*</span></Label>
                     <Input id="skills" type="text" name="skills" placeholder="ex: JavaScript, React, Node.js" required value={formData.skills} onChange={handleChange} />
                 </div>
                 <div className="grid gap-3">
-                    <Label htmlFor="passingYear">Graduation Year</Label>
+                    <Label htmlFor="passingYear">Graduation Year<span className="text-primary">*</span></Label>
                     <Input id="passingYear" type="number" name="passingYear" min={2025} max={2027} step={1} placeholder="ex: 2023" required value={formData.passingYear} onChange={handleChange} />
                 </div>
                 <div className="flex justify-between gap-2">
                     <div className="grid gap-3">
-                        <Label htmlFor="roleType">Job Type</Label>
+                        <Label htmlFor="roleType">Job Type<span className="text-primary">*</span></Label>
                         <Select id="roleType" name="roleType" value={formData.roleType} onValueChange={(value) => setFormData({ ...formData, roleType: value })}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select Role" />
@@ -158,12 +163,12 @@ function JobForm() {
                         </Select>
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="minCgpa">Minimum CGPA</Label>
+                        <Label htmlFor="minCgpa">Minimum CGPA<span className="text-primary">*</span></Label>
                         <Input id="minCgpa" type="number" name="minCgpa" min={0} max={10} step={0.1} placeholder="ex: 6.5" required value={formData.minCgpa} onChange={handleChange} />
                     </div>
                 </div>
                 <div className="grid gap-3">
-                    <Label htmlFor="deadline">Application Deadline</Label>
+                    <Label htmlFor="deadline">Application Deadline<span className="text-primary">*</span></Label>
                     <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
                         <PopoverTrigger asChild>
                             <Button variant="outline" className="w-full">
