@@ -162,7 +162,7 @@ function Overview(){
             </div>
             <div className="flex flex-col gap-2 justify-center items-center">
                 {placementReport.map((report, index) => (
-                    <a href={report.link} target="_blank"><div key={index} className="flex items-center w-full gap-2 bg-primary text-white px-4 py-4 text-md font-semibold rounded cursor-pointer text-nowrap">
+                    <a href={report.link} target="_blank" key={index}><div  className="flex items-center w-full gap-2 bg-primary text-white px-4 py-4 text-md font-semibold rounded cursor-pointer text-nowrap">
                         <BiSolidReport/>
                         <div>Placement Report {report.year}</div>
                     </div></a>

@@ -26,7 +26,9 @@ export function AuthProvider({ children }) {
                 const json = await response.json();
                 setUser(json.data);
                 localStorage.setItem("user", JSON.stringify(json.data));
-                navigate("/");
+                setTimeout(() => {
+                    navigate("/");
+                }, 0);
             }
         }
         catch (error) {
@@ -52,7 +54,9 @@ export function AuthProvider({ children }) {
                 const json = await response.json();
                 setUser(json.data);
                 localStorage.setItem("user", JSON.stringify(json.data));
-                navigate("/");
+                setTimeout(() => {
+                    navigate("/");
+                }, 0);
             }
         }
         catch (error) {
@@ -66,7 +70,9 @@ export function AuthProvider({ children }) {
     function logout() {
         setUser(null);
         localStorage.removeItem("user");
-        <NavLink to="/auth"></NavLink>
+        setTimeout(() => {
+            navigate("/auth");
+        }, 0);
     }
 
     const isAuthenticated = !!user ; // Check if user is authenticated
