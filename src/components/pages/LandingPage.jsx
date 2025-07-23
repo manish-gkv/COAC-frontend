@@ -185,7 +185,7 @@ function WhyRecruit() {
 
 function RecruitmentProcess() {
     return (
-        <div id="recuitmentProcess" className="flex flex-col items-center justify-center px-4 py-20 bg-white text-black max-w-2xl h-screen  mx-auto">
+        <div id="recuitmentProcess" className="flex flex-col items-center justify-center px-4 py-20 bg-white text-black max-w-2xl h-screen max-h-150 mx-auto">
             <h2 className="text-3xl font-bold mb-4 text-balance text-center">Recruitment Process</h2>
             <Card className="w-full h-full ">
                 <ScrollArea className="w-full h-full p-2 ">
