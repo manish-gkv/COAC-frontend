@@ -5,6 +5,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { FaSuitcase } from "react-icons/fa";
 import { BiSolidReport } from "react-icons/bi";
 import { FaCircle } from "react-icons/fa";
+import { Goal } from 'lucide-react';
 
 import { useState } from "react";
 
@@ -313,6 +314,19 @@ function RecruitmentProcess() {
                             <Card className="py-1 px-4 text-wrap w-fit ">
                                 Organization provide the list of students, they are extending offers to at the end of their interview slot
                             </Card>
+                        </div>
+                    </div>
+                    <div className="flex w-full">
+                        <div className="basis-1/2 "></div>
+                        <div className="relative flex w-14  bg-white justify-center ">
+                            <div
+                                className="before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-px before:h-full "
+                            ><div className="bg-primary rounded-full p-3">
+                                <Goal className="text-white text-2xl -mt-1"/>
+                            </div></div>
+                        </div>
+                        <div className="basis-1/2 space-y-2 ">
+                            
                         </div>
                     </div>
                 </ScrollArea>
