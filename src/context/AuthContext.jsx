@@ -1,17 +1,34 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 import { API_BASE_URL } from "@/utils";
 
+import useProfile from "../hooks/useProfile";
+
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { hasProfile, fetchProfile, setProfile, setHasProfile} = useProfile();
     const navigate = useNavigate();
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")) || null);
     }, []);
-
+    useEffect(() => {
+        if (user) {
+            fetchProfile();
+        }
+    }, [user]);
+    useEffect(() => {
+        if (user && hasProfile !== null) {
+            if(!hasProfile) {
+                navigate("/create-profile");
+            }
+            else {
+                navigate("/");
+            }
+        }
+    }, [hasProfile, user]);
     async function login(userData) {
         setLoading(true);
         try {
@@ -26,9 +43,7 @@ export function AuthProvider({ children }) {
                 const json = await response.json();
                 setUser(json.data);
                 localStorage.setItem("user", JSON.stringify(json.data));
-                setTimeout(() => {
-                    navigate("/");
-                }, 0);
+                await fetchProfile();
             }
         }
         catch (error) {
@@ -54,9 +69,7 @@ export function AuthProvider({ children }) {
                 const json = await response.json();
                 setUser(json.data);
                 localStorage.setItem("user", JSON.stringify(json.data));
-                setTimeout(() => {
-                    navigate("/");
-                }, 0);
+                await fetchProfile();
             }
         }
         catch (error) {
@@ -69,10 +82,10 @@ export function AuthProvider({ children }) {
 
     function logout() {
         setUser(null);
+        setProfile(null);
+        setHasProfile(false);
         localStorage.removeItem("user");
-        setTimeout(() => {
-            navigate("/auth");
-        }, 0);
+        navigate("/auth");
     }
 
     const isAuthenticated = !!user ; // Check if user is authenticated

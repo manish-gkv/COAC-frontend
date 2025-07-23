@@ -29,7 +29,7 @@ export function SignUpForm({
     const userData = {
       email: formData.email,
       password: formData.password,
-      role: props.role
+      role: props.role == "recruiter" ? "company" : props.role
     };
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");

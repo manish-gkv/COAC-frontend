@@ -1,7 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import { SidebarProvider, Sidebar, SidebarTrigger, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
 import { useState } from "react";
-import { Link, Routes, Route, useLocation } from "react-router-dom";
+import { Link, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { CgOrganisation } from "react-icons/cg";
@@ -10,10 +10,13 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 
 import NotFound from "@/components/pages/NotFound";
 import AddJob from "./Addjob";
+import useProfile from "@/hooks/useProfile";
+import CreateProfile from "./CreateProfile";
 
 export default function Recruiter() {
   const { open, setOpen } = useState(false);
   const { user, logout } = useAuth();
+  const { hasProfile } = useProfile();
   const location = useLocation();
   return (
     <div>
@@ -84,6 +87,7 @@ export default function Recruiter() {
           <Routes>
             <Route path="/" element={<div>Welcome to the Recruiter Dashboard</div>} />
             <Route path="profile" element={<div>Profile Page</div>} />
+            {!hasProfile && <Route path="create-profile" element={<CreateProfile />} />}
             <Route path="new-job" element={<AddJob />} />
             <Route path="jobs" element={<div>Your Jobs Page</div>} />
             <Route path="*" element={<NotFound />} />
