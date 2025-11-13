@@ -103,7 +103,7 @@ export default function LoginPage() {
         <img
           src="/logo.png"
           alt="Image"
-          className="absolute p-8 inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="absolute p-8 inset-0 h-full w-full  dark:brightness-[0.2] dark:grayscale"
         />
       </div>
     </div>

@@ -7,16 +7,20 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { CgOrganisation } from "react-icons/cg";
 import { FaListAlt } from "react-icons/fa";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
 
 import NotFound from "@/components/pages/NotFound";
 import AddJob from "./Addjob";
+import JobTable from "./JobTable";
 import useProfile from "@/hooks/useProfile";
 import CreateProfile from "./CreateProfile";
+import Profile from "./Profile";
+import Dashboard from "./Dashboard";
 
 export default function Recruiter() {
   const { open, setOpen } = useState(false);
   const { user, logout } = useAuth();
-  const { hasProfile } = useProfile();
+  const { hasProfile , profile} = useProfile();
   const location = useLocation();
   return (
     <div>
@@ -32,6 +36,14 @@ export default function Recruiter() {
           </SidebarHeader>
           <SidebarContent className="px-4 ">
               <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton isActive={location.pathname === "/"}>
+                    <Link to="/" className="flex items-center space-x-2 gap-2">
+                      <MdOutlineDashboardCustomize />
+                      Company Dashboard
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton isActive={location.pathname === "/profile"}>
                     <Link to="/profile" className="flex items-center space-x-2 gap-2">
@@ -62,10 +74,10 @@ export default function Recruiter() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <div className="flex items-center px-2">
-                  <img src={user?.profilePicture || "/logo.png"} alt="Profile" className="w-8 h-8 rounded-full mr-2" />
+                  <img src={profile?.logoUrl || "/company.png"} alt="Profile" className="w-8 h-8 rounded-full mr-2" />
                   <div>
                     <div className="font-semibold text-sm">
-                      {user?.name || "Guest"}
+                      {profile?.companyName || "Guest"}
                     </div>
                     <div className="text-xs text-muted-foreground">
                       {user?.email || "abc@gmail.com"}
@@ -85,11 +97,11 @@ export default function Recruiter() {
         <main className="w-full">
           <SidebarTrigger className="md:hidden" />
           <Routes>
-            <Route path="/" element={<div>Welcome to the Recruiter Dashboard</div>} />
-            <Route path="profile" element={<div>Profile Page</div>} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
             {!hasProfile && <Route path="create-profile" element={<CreateProfile />} />}
             <Route path="new-job" element={<AddJob />} />
-            <Route path="jobs" element={<div>Your Jobs Page</div>} />
+            <Route path="jobs" element={<JobTable />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

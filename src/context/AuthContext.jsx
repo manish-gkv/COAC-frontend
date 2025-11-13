@@ -81,11 +81,15 @@ export function AuthProvider({ children }) {
     }
 
     function logout() {
+        let role = user?.role;
+        if(role=="company") {
+            role = "recruiter";
+        }
         setUser(null);
         setProfile(null);
         setHasProfile(false);
         localStorage.removeItem("user");
-        navigate("/auth");
+        navigate("/auth/"+role+"/login");
     }
 
     const isAuthenticated = !!user ; // Check if user is authenticated
