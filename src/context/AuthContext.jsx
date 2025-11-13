@@ -9,7 +9,7 @@ import useProfile from "../hooks/useProfile";
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { hasProfile, fetchProfile, setProfile, setHasProfile} = useProfile();
+    const { hasProfile, fetchProfile, setProfile, setHasProfile } = useProfile();
     const navigate = useNavigate();
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")) || null);
@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
     }, [user]);
     useEffect(() => {
         if (user && hasProfile !== null) {
-            if(!hasProfile) {
+            if (!hasProfile) {
                 navigate("/create-profile");
             }
             else {
@@ -32,14 +32,14 @@ export function AuthProvider({ children }) {
     async function login(userData) {
         setLoading(true);
         try {
-            const response = await fetch(API_BASE_URL+"/auth/signin", {
+            const response = await fetch(API_BASE_URL + "/auth/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData),
             });
-            if(response.ok) {
+            if (response.ok) {
                 const json = await response.json();
                 setUser(json.data);
                 localStorage.setItem("user", JSON.stringify(json.data));
@@ -51,21 +51,21 @@ export function AuthProvider({ children }) {
         }
         finally {
             setLoading(false);
-        }    
-        
+        }
+
     }
 
     async function signup(userData) {
         setLoading(true);
         try {
-            const response = await fetch(API_BASE_URL+"/auth/signup", {
+            const response = await fetch(API_BASE_URL + "/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData),
             });
-            if(response.ok) {
+            if (response.ok) {
                 const json = await response.json();
                 setUser(json.data);
                 localStorage.setItem("user", JSON.stringify(json.data));
@@ -79,23 +79,47 @@ export function AuthProvider({ children }) {
             setLoading(false);
         }
     }
-
+    async function googleLogin(token) {
+        setLoading(true);
+        try {
+            const response =await fetch(API_BASE_URL + `/auth/google?token=${token}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            const json = await response.json();
+            if (response.ok) {
+                setUser(json.data);
+                localStorage.setItem("user", JSON.stringify(json.data));
+                await fetchProfile();
+            } else {
+                console.log("Google Login Failed:", json);
+            }
+        }
+        catch (err) {
+            console.log("Google Login Error:", err);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
     function logout() {
         let role = user?.role;
-        if(role=="company") {
+        if (role == "company") {
             role = "recruiter";
         }
         setUser(null);
         setProfile(null);
         setHasProfile(false);
         localStorage.removeItem("user");
-        navigate("/auth/"+role+"/login");
+        navigate("/auth/" + role + "/login");
     }
 
-    const isAuthenticated = !!user ; // Check if user is authenticated
+    const isAuthenticated = !!user; // Check if user is authenticated
 
-    return(
-        <AuthContext.Provider value={{ user, login, loading, signup, logout, isAuthenticated}}> {children }</AuthContext.Provider>
+    return (
+        <AuthContext.Provider value={{ user, login, googleLogin, loading, signup, logout, isAuthenticated }}> {children}</AuthContext.Provider>
     )
 
 }
