@@ -13,7 +13,7 @@ import StudentProfile from "./Profile";
 import CreateStudentProfile from "./CreateProfile";
 import AvailableJobs from "./Jobs";
 import useProfile from "@/hooks/useProfile";
-
+import JobDetails from "./JobDetail";
 
 export default function Student() {
     const { open, setOpen } = useState(false);
@@ -75,13 +75,14 @@ export default function Student() {
                     </SidebarMenu>
                 </SidebarFooter>
             </Sidebar>
-            <main className="p-4 md:ml-64">
+            <main className="w-full">
                 <SidebarTrigger className="md:hidden" />
                 <Routes>
                     <Route path="/" element={<StudentDashboard />} />
                     <Route path="/profile" element={<StudentProfile />} />
                     {!hasProfile && <Route path="create-profile" element={<CreateStudentProfile />} />}
                     <Route path="/jobs" element={<AvailableJobs />} />
+                    <Route path="/job/:jobId" element={<JobDetails />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>

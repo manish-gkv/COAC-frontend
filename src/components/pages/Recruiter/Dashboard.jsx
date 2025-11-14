@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
-import useAuth from "@/hooks/useAuth";
 import useProfile from "@/hooks/useProfile";
 import JobTable from "./JobTable";
 
 export default function Dashboard() {
-    const { user } = useAuth();
     const { hasProfile, profile } = useProfile();
     return (
         <div className="flex flex-col h-full p-4 bg-accent">
