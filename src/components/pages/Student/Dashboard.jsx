@@ -4,7 +4,7 @@ import { JobTable } from "./Jobs";
 import { useState, useEffect } from "react";
 export default function Dashboard() {
     const { profile } = useProfile();
-    const [profileImageUrl, setProfileImageUrl] = useState(profile?.logoUrl || "student.png");
+    const [profileImageUrl, setProfileImageUrl] = useState(profile?.profileImage || "student.png");
     return (
         <div className="flex flex-col h-full p-4 bg-accent">
             <h1 className="text-2xl font-bold mb-4 text-center">Student Dashboard</h1>
