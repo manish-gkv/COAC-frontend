@@ -1,21 +1,21 @@
 import { Card, CardTitle } from "@/components/ui/card";
 import useProfile from "@/hooks/useProfile";
 import { JobTable } from "./Jobs";
+import { useState, useEffect } from "react";
 export default function Dashboard() {
     const { profile } = useProfile();
+    const [profileImageUrl, setProfileImageUrl] = useState(profile?.logoUrl || "student.png");
     return (
         <div className="flex flex-col h-full p-4 bg-accent">
             <h1 className="text-2xl font-bold mb-4 text-center">Student Dashboard</h1>
             <div>
                 <div className="flex flex-row justify-center mb-4">
                     <div className="flex flex-col items-center">
-                        {profile?.logoUrl ? (
-                            <img src={"/default-logo.png"} alt="Company Logo" className="w-32 h-32 object-cover rounded-full mb-4" />
-                        ) : (
-                            <div className="w-32 h-32 bg-gray-200 flex items-center justify-center rounded-full mb-4">
-                                <span className="text-gray-500">Logo</span>
-                            </div>
-                        )}
+                        <div className="w-32 h-32 mb-4 bg-white rounded-full overflow-hidden">
+                            <img src={profileImageUrl} alt="Profile" className="w-32 h-32 object-cover rounded-full" />
+                        </div>
+                        <h2 className="text-2xl font-semibold text-center text-balance bg-white rounded px-2">{profile?.name || "Student Name"}</h2>
+                        <p className="text-xl font-semibold text-center text-balance text-gray-500 bg-white rounded px-2 mt-2">{profile?.rollNumber || "rollNumber"}</p>
                     </div>
 
                 </div>

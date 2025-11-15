@@ -4,6 +4,7 @@ import useAuth from "@/hooks/useAuth";
 import { SidebarProvider, Sidebar, SidebarTrigger, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
 
 import { CgOrganisation } from "react-icons/cg";
+import { FaClipboardCheck } from "react-icons/fa6";
 import { FaListAlt } from "react-icons/fa";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
@@ -14,6 +15,7 @@ import CreateStudentProfile from "./CreateProfile";
 import AvailableJobs from "./Jobs";
 import useProfile from "@/hooks/useProfile";
 import JobDetails from "./JobDetail";
+import AppliedJobs from "./AppliedJobs";
 
 export default function Student() {
     const { open, setOpen } = useState(false);
@@ -58,6 +60,14 @@ export default function Student() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton isActive={location.pathname === "/applied-jobs"}>
+                                <Link to="/applied-jobs" className="flex items-center space-x-2 gap-2">
+                                    <FaClipboardCheck />
+                                    Applied Jobs
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarContent>
                 <SidebarFooter>
@@ -80,9 +90,10 @@ export default function Student() {
                 <Routes>
                     <Route path="/" element={<StudentDashboard />} />
                     <Route path="/profile" element={<StudentProfile />} />
-                    {!hasProfile && <Route path="create-profile" element={<CreateStudentProfile />} />}
+                    <Route path="/create-profile" element={<CreateStudentProfile />} />
                     <Route path="/jobs" element={<AvailableJobs />} />
                     <Route path="/job/:jobId" element={<JobDetails />} />
+                    <Route path="/applied-jobs" element={<AppliedJobs />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>

@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API_ENDPOINT } from "@/utils";
 import {
     Table,
